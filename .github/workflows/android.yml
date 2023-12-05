@@ -10,26 +10,33 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      OUTPUT_DIR: app/build/outputs/apk/debug
+      FIR_TOKEN: ${{ secrets.FIR_TOKEN }}
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
 
-    - name: set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'zulu'
-        cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug -PoutputDir=$GITHUB_WORKSPACE/app/outputs/apk/debug
-      env:
-        BUILD_DIR: ${{ github.workspace }}/app/outputs/apk/debug
-
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: debug-apk
-        path: ${{ env.BUILD_DIR }}/*.apk
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+      - name: Install fir-cli
+        continue-on-error: true
+        run: gem install fir-cli
+      - name: Upload to Fir
+        continue-on-error: true
+        id: fir-upload
+        run: |
+          fir login $FIR_TOKEN
+          fir publish $OUTPUT_DIR/*.apk
