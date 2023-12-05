@@ -18,3 +18,9 @@ local.properties
 /.idea/migrations.xml
 /.idea/misc.xml
 /.idea/workspace.xml
+/app/release/app-release.apk
+/.idea/compiler.xml
+/.idea/deploymentTargetDropDown.xml
+/.idea/kotlinc.xml
+/app/release/output-metadata.json
+/.idea/vcs.xml
