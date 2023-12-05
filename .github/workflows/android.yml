@@ -10,9 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      OUTPUT_DIR: app/build/outputs/apk/debug
-      FIR_TOKEN: ${{ secrets.FIR_TOKEN }}
+
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 17
@@ -26,17 +24,5 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew assembleDebug
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-      - name: Install fir-cli
-        continue-on-error: true
-        run: gem install fir-cli
-      - name: Upload to Fir
-        continue-on-error: true
-        id: fir-upload
-        run: |
-          fir login $FIR_TOKEN
-          fir publish $OUTPUT_DIR/*.apk
+      - name: List files in working directory
+        run: ls -R
