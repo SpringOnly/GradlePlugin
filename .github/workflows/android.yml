@@ -20,9 +20,28 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+#       gradle缓存
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+#       设置gradle的权限
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+#        debug打包
       - name: Build with Gradle
         run: ./gradlew assembleDebug
-      - name: List files in working directory
-        run: ls -R
+
+#        上传到指定目录
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: release-apk
+          path: app/build/app/outputs/apk/release/
