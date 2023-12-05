@@ -16,14 +16,22 @@ jobs:
 
 
 
-    - name: set up JDK 17
+    - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '11'
         distribution: 'zulu'
         cache: gradle
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug -PoutputDir=$GITHUB_WORKSPACE/app/outputs/apk/debug
+      env:
+        BUILD_DIR: ${{ github.workspace }}/app/outputs/apk/debug
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: debug-apk
+        path: ${{ env.BUILD_DIR }}/*.apk
