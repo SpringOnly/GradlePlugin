@@ -30,6 +30,17 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+            
+
+      - name: Cache Android SDK and NDK
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.opt/android/sdk
+            ${{ github.workspace }}/.opt/android/ndk
+          key: android-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            android-${{ runner.os }}-
 
 #       设置gradle的权限
       - name: Grant execute permission for gradlew
