@@ -46,11 +46,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-#        debug打包
+#       打包
       - name: Build Android App
         run: ./gradlew assembleRelease
 
-#        上传到指定目录
+#       上传到指定目录
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
