@@ -5,6 +5,9 @@ plugins {
     //maven本地发布
     id 'maven-publish'
 }
+dependencies {
+    implementation 'com.android.tools.build:gradle:8.2.0'
+}
 
 //配置插件
 gradlePlugin {
@@ -17,15 +20,13 @@ gradlePlugin {
 }
 
 //maven发布配置
-group 'com.plugin'
-version '1.0.0'
 
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = group
+            groupId = 'com.plugin'
             artifactId = 'dependencies'
-            version = version
+            version = '1.0.0'
 
             from components.java
         }
