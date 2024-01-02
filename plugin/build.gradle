@@ -18,22 +18,42 @@ gradlePlugin {
 
 //maven发布配置
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.plugin'
-            artifactId = 'dependencies'
-            version = '1.0.0'
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId = 'com.plugin'
+//            artifactId = 'dependencies'
+//            version = '1.0.0'
+//
+//            from components.java
+//        }
+//    }
+//
+//    // 配置仓库地址
+//    repositories {
+//        mavenLocal()
+//    }
+//}
 
-            from components.java
+afterEvaluate{
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.plugin'
+                artifactId = 'dependencies'
+                version = '1.0.0'
+
+                from components.java
+            }
+        }
+
+        // 配置仓库地址
+        repositories {
+            mavenLocal()
         }
     }
-
-    // 配置仓库地址
-    repositories {
-        mavenLocal()
-    }
 }
+
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
