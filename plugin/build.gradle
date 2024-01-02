@@ -1,9 +1,12 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
     //编写自定义插件
     id 'java-gradle-plugin'
     //maven本地发布
     id 'maven-publish'
+}
+
+dependencies {
+    implementation 'com.android.tools.build:gradle:8.2.0'
 }
 
 //配置插件
@@ -17,45 +20,22 @@ gradlePlugin {
 }
 
 //maven发布配置
+group 'com.plugin'
+version '1.0.0'
 
-//publishing {
-//    publications {
-//        maven(MavenPublication) {
-//            groupId = 'com.plugin'
-//            artifactId = 'dependencies'
-//            version = '1.0.0'
-//
-//            from components.java
-//        }
-//    }
-//
-//    // 配置仓库地址
-//    repositories {
-//        mavenLocal()
-//    }
-//}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'dependencies'
+            version = version
 
-afterEvaluate{
-    publishing {
-        publications {
-            release(MavenPublication) {
-                groupId = 'com.plugin'
-                artifactId = 'dependencies'
-                version = '1.0.0'
-
-                from components.java
-            }
-        }
-
-        // 配置仓库地址
-        repositories {
-            mavenLocal()
+            from components.java
         }
     }
-}
 
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    // 配置仓库地址
+    repositories {
+        mavenLocal()
+    }
 }
