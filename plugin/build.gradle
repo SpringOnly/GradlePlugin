@@ -34,9 +34,7 @@ publishing {
 
     // 配置仓库地址
     repositories {
-        maven {
-            url layout.buildDirectory.dir("maven-repo")
-        }
+        mavenLocal()
     }
 }
 

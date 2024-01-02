@@ -1,9 +1,7 @@
 pluginManagement {
     repositories {
-        maven {
-            url './plugin/build/maven-repo'
-        }
         google()
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }
