@@ -1,5 +1,4 @@
 plugins {
-    id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
     //编写自定义插件
     id 'java-gradle-plugin'
