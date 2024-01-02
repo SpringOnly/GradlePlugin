@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.example.plugin.dependencies'
+}
+
+printDependencies {
+    enable = true
 }
 
 android {
@@ -32,7 +37,41 @@ android {
     }
 }
 
+
+//apply plugin: ExamplePlugin
+//
+//
+//class ExamplePluginExtension {
+//    String title
+//    int age
+//}
+//
+//examplePlugin {
+//    title = "asdasd"
+//    age = 23
+//}
+//
+//class ExamplePlugin implements Plugin<Project> {
+//
+//    @Override
+//    void apply(Project project) {
+//        println("this is:${this.class.name}")
+//
+//        def ya = project.extensions.create("examplePlugin", ExamplePluginExtension)
+//
+//        project.task("ExamplePluginTask") { task ->
+//            task.doLast {
+//                println("这是插件${this.class.name}，它创建了一个Task：${task.name}")
+//                println(ya.title)
+//                println(ya.age)
+//            }
+//        }
+//    }
+//}
+
+
 dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'

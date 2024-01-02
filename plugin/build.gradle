@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    //编写自定义插件
+    id 'java-gradle-plugin'
+    //maven本地发布
+    id 'maven-publish'
+}
+
+//配置插件
+gradlePlugin {
+    plugins {
+        DependenciesPlugin {
+            id = 'com.example.plugin.dependencies'
+            implementationClass = 'com.example.plugin.DependenciesPlugin'
+        }
+    }
+}
+
+//maven发布配置
+group 'com.plugin'
+version '1.0.0'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'dependencies'
+            version = version
+
+            from components.java
+        }
+    }
+
+    // 配置仓库地址
+    repositories {
+        maven {
+            url layout.buildDirectory.dir("maven-repo")
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
