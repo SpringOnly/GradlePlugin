@@ -12,3 +12,56 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
 
+apply from: rootProject.file('task.gradle')
+
+
+//abstract class CopyTask extends DefaultTask {
+//
+//    //指定输入
+//    @InputFiles
+//    FileCollection from
+//
+//    //指定输出文件夹
+//    @OutputDirectory
+//    Directory to
+//
+//
+//    @TaskAction
+//    def execute() {
+//        File file = from.getSingleFile()
+//
+//        if (file.isDirectory()) {
+//            from.getAsFileTree().each { file1 ->
+//                copyFileToDir(file1, to)
+//            }
+//        } else {
+//            copyFileToDir(from, to)
+//        }
+//    }
+//
+//    /**
+//     * 复制文件到文件夹
+//     * @param src 要复制的文件
+//     * @param dir 接收的文件夹
+//     * @return
+//     */
+//    static def copyFileToDir(File src, Directory dir) {
+//
+//        File file = new File("${dir.getAsFile().path}/${src.name}")
+//
+//        //不存在就创建
+//        if (!file.exists()) {
+//            file.createNewFile()
+//        }
+//
+//        file.withOutputStream {
+//            it.write(new FileInputStream(src).getBytes())
+//        }
+//    }
+//
+//}
+//
+//tasks.register("CopyTask", CopyTask) {
+//    from = files('app/from')
+//    to = layout.projectDirectory.dir("to")
+//}

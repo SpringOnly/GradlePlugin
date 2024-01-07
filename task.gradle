@@ -1,0 +1,124 @@
+//tasks.register("lp") {
+//    println("Task Name = " + it.name)
+//}
+//
+//tasks.register("al") {
+//    println("Task Name = " + it.name)
+//}
+//
+//abstract class ljpTask extends DefaultTask {
+//
+//    @Internal
+//    def taskName = "default"
+//
+//
+//    @TaskAction
+//    def myAction1() {
+//        println("$taskName -- MyAction1")
+//    }
+//
+//    @TaskAction
+//    def myAction2() {
+//        println("$taskName -- MyAction2")
+//    }
+//}
+//
+//tasks.register("ljp", ljpTask) {
+//    taskName = "我是传入的名字"
+//}
+
+//tasks.register("ljp") {
+//    it.doFirst {
+//        println("${it.name} = doFirst 111")
+//    }
+//
+//    it.doFirst {
+//        println("${it.name} = doFirst 222")
+//    }
+//
+//    println("Task Name = " + it.name)
+//
+//    it.doLast {
+//        println("${it.name} = doLast 111")
+//    }
+//    it.doLast {
+//        println("${it.name} = doLast 222")
+//    }
+//}
+
+
+//tasks.register("ljp") {
+//    it.configure {
+//        dependsOn(provider {
+//            tasks.findAll {
+//                it.name.contains("ljp222")
+//            }
+//        })
+//    }
+//
+//    it.doLast {
+//        println("${it.name}")
+//    }
+//}
+//
+//tasks.register("ljp222"){
+//    it.doLast {
+//        println("${it.name}")
+//    }
+//}
+
+//tasks.register("myTask") {
+//    onlyIf {
+//        // 在这里添加条件，如果条件为true，任务将执行；如果条件为false，任务将跳过
+//        return true
+//    }
+//
+//    doLast {
+//        println "task ++++++++++"
+//    }
+//
+//    doFirst {
+//        // 这里是任务的实际执行代码
+//        println "Executing myTask"
+//    }
+//}
+
+
+//tasks.register("skipTask") { taskObj ->
+//
+//    taskObj.doFirst {
+//        println("${it.name} is Executed doFirst")
+//    }
+//
+//    taskObj.doLast {
+//        if (false) {
+//            throw new StopExecutionException()
+//        }
+//
+//        println("${it.name} is Executed doLast")
+//    }
+//}
+
+//tasks.register("skipTask") { taskObj ->
+//    taskObj.configure {
+//        enabled = true
+//    }
+//
+//    taskObj.doLast {
+//        println("${it.name} is Executed")
+//    }
+//}
+//
+
+
+//tasks.register("skipTask") { taskObj ->
+//    taskObj.configure {
+//        timeout = Duration.ofSeconds(10)
+//    }
+//
+//    taskObj.doLast {
+//        Thread.sleep(5 * 1000)
+//        println("${it.name} is Executed")
+//    }
+//}
+
